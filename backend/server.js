@@ -2,7 +2,7 @@ import express from 'express';
 import data from './data.js';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import Router from './routes/router.js';
+import UserRouter from './routes/UserRouter.js';
 
 dotenv.config();
 
@@ -17,10 +17,7 @@ mongoose
 
 const app = express();
 
-app.use('/api/seed', Router);
-app.get('/api/products', (req, res) => {
-  res.send(data.products);
-});
+app.use('/api', UserRouter);
 
 const port = process.env.PORT || 5000;
 
