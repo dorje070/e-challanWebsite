@@ -1,7 +1,9 @@
-import logo from './logo.svg';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import HomeScreen from './Screens/HomeScreen';
+import TrafficScreen from './Screens/TrafficScreen';
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -14,22 +16,17 @@ function App() {
     fetchData();
   }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div>
+        <main>
+          <Routes>
+            <Route path="/" element={<HomeScreen />}></Route>
+            <Route path="/traffic" element={<TrafficScreen />}></Route>
+          </Routes>
+        </main>
+      </div>
+      ;
+    </BrowserRouter>
   );
 }
 
