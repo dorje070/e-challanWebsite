@@ -1,5 +1,5 @@
 function TrafficScreen() {
-  return <div>Login Page</div>;
+  return <div>Traffic Page</div>;
 }
 
 export default TrafficScreen;

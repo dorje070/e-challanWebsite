@@ -2,7 +2,7 @@ import express from 'express';
 import data from './data.js';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import UserRouter from './routes/UserRouter.js';
+import userRouter from './routes/userRouter.js';
 
 dotenv.config();
 
@@ -16,8 +16,15 @@ mongoose
   });
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.use('/api', UserRouter);
+app.use('/api', userRouter);
+app.use(express.urlencoded({ extended: true }));
+
+app.use((err, req, res, next) => {
+  res.status(500).send({ message: err.message });
+});
 
 const port = process.env.PORT || 5000;
 
