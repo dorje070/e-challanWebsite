@@ -1,18 +1,29 @@
 import React, { useState } from 'react';
+import Axios from 'axios';
 
 export default function AccountScreen() {
   const [name, SetName] = useState('');
   const [email, SetEmail] = useState('');
   const [password, Setpassword] = useState('');
   const [cpassword, SetCpassword] = useState('');
-  const [checked, setChecked] = useState(false);
+  const [isAdmin, setisAdmin] = useState(false);
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(name);
-    console.log(checked);
-    console.log(password);
-    console.log(cpassword);
-    console.log(email);
+    if (password !== cpassword) {
+      console.log('password is incorrect');
+      return;
+    }
+    try {
+      const { data } = await Axios.post('/api/signup', {
+        name,
+        email,
+        password,
+        isAdmin,
+      });
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -35,8 +46,9 @@ export default function AccountScreen() {
         />
         <input
           type="checkbox"
-          checked={checked}
-          onChange={(e) => setChecked(e.target.checked)}
+          name="isAdmin"
+          checked={isAdmin}
+          onChange={(e) => setisAdmin(e.target.checked)}
         />
         <label>isAdmin</label>
         <label>password</label>

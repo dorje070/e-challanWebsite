@@ -31,7 +31,7 @@ export default function LoginScreen() {
           name="email"
           onChange={(e) => SetEmail(e.target.value)}
         ></input>
-        <label>Email</label>
+        <label>Password</label>
         <input
           type="password"
           required
