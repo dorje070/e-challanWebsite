@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 import HomeScreen from './Screens/HomeScreen';
 import TrafficScreen from './Screens/TrafficScreen';
 import LoginScreen from './Screens/LoginScreen';
+import ProfileScreen from './Screens/ProfileScreen';
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -32,6 +33,9 @@ function App() {
             <Route path="/" element={<HomeScreen />}></Route>
             <Route path="/login" element={<LoginScreen />}></Route>
             <Route path="/traffic" element={<TrafficScreen />}></Route>
+            <Route path="/traffic/profile" element={<ProfileScreen />}>
+              {' '}
+            </Route>
           </Routes>
         </main>
       </div>
