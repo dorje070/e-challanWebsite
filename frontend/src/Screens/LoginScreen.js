@@ -16,7 +16,7 @@ export default function LoginScreen() {
       });
       localStorage.setItem('userInfo', JSON.stringify(data));
       console.log(data);
-      navigate('/Traffic');
+      window.location.href = '/traffic';
     } catch (err) {
       console.log(err);
     }

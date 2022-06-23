@@ -8,6 +8,17 @@ import LoginScreen from './Screens/LoginScreen';
 import ProfileScreen from './Screens/ProfileScreen';
 
 function App() {
+  const data = localStorage.getItem('userInfo');
+  var isempty = false;
+  if (data === null) {
+    isempty = true;
+  }
+
+  const signOutHandler = () => {
+    localStorage.removeItem('userInfo');
+    console.log(data);
+    window.location.href = '/';
+  };
   const [products, setProducts] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -23,9 +34,15 @@ function App() {
         <NavLink to="/" className="NavbarLink">
           Home
         </NavLink>{' '}
-        <NavLink to="/login" className="NavLink">
-          login
-        </NavLink>
+        {isempty ? (
+          <NavLink to="/login" className="NavLink">
+            sign in
+          </NavLink>
+        ) : (
+          <NavLink to="/" className="NavbarLink" onClick={signOutHandler}>
+            sign out
+          </NavLink>
+        )}
       </div>
       <div>
         <main>
