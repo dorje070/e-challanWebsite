@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 
 export default function LoginScreen() {
-  const navigate = useNavigate();
   const [email, SetEmail] = useState('');
   const [password, Setpassword] = useState('');
 

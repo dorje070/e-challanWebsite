@@ -6,6 +6,7 @@ import HomeScreen from './Screens/HomeScreen';
 import TrafficScreen from './Screens/TrafficScreen';
 import LoginScreen from './Screens/LoginScreen';
 import ProfileScreen from './Screens/ProfileScreen';
+import AccountScreen from './Screens/AccountScreen';
 
 function App() {
   const data = localStorage.getItem('userInfo');
@@ -39,9 +40,17 @@ function App() {
             sign in
           </NavLink>
         ) : (
-          <NavLink to="/" className="NavbarLink" onClick={signOutHandler}>
-            sign out
-          </NavLink>
+          <div>
+            <NavLink to="/traffic/profile" className="NavLink">
+              profile
+            </NavLink>{' '}
+            <NavLink to="/traffic/account" className="NavLink">
+              account
+            </NavLink>{' '}
+            <NavLink to="/" className="NavbarLink" onClick={signOutHandler}>
+              sign out
+            </NavLink>
+          </div>
         )}
       </div>
       <div>
@@ -50,9 +59,8 @@ function App() {
             <Route path="/" element={<HomeScreen />}></Route>
             <Route path="/login" element={<LoginScreen />}></Route>
             <Route path="/traffic" element={<TrafficScreen />}></Route>
-            <Route path="/traffic/profile" element={<ProfileScreen />}>
-              {' '}
-            </Route>
+            <Route path="/traffic/profile" element={<ProfileScreen />}></Route>
+            <Route path="/traffic/account" element={<AccountScreen />}></Route>
           </Routes>
         </main>
       </div>
