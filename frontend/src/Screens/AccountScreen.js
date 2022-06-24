@@ -20,6 +20,8 @@ export default function AccountScreen() {
         password,
         isAdmin,
       });
+
+      localStorage.setItem('userProfile', JSON.stringify(data));
       console.log(data);
     } catch (err) {
       console.log(err);

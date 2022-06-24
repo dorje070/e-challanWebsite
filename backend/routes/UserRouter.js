@@ -3,20 +3,8 @@ import bcrypt from 'bcryptjs';
 import expressAsyncHandler from 'express-async-handler';
 import User from '../model/UserSchema.js';
 import { generateToken } from '../utils.js';
-import data from '../data.js';
 
 const userRouter = express.Router();
-
-userRouter.get('/', async (req, res) => {
-  const data = await User.find();
-  res.send(data);
-});
-
-userRouter.get('/seed', async (req, res) => {
-  await User.remove({});
-  const createdUsers = await User.insertMany(data.users);
-  res.send({ createdUsers });
-});
 
 userRouter.post(
   '/signin',
@@ -38,6 +26,39 @@ userRouter.post(
   })
 );
 
+userRouter.get('/:id', async (req, res) => {
+  const user = await User.findById({ _id: req.params.id });
+  if (user) {
+    res.send(user);
+  } else {
+    res.status(404).send({ message: 'User Not Found' });
+  }
+});
+
+userRouter.put('/profile/:id', async (req, res) => {
+  const user = await User.findById({ _id: req.params.id });
+  if (user) {
+    user.email = req.body.email;
+    user.name = req.body.name;
+    user.address = req.body.address;
+    user.gender = req.body.gender;
+    user.phone = req.body.phone;
+    user.isAdmin = req.body.isAdmin;
+    const updatedUser = await user.save();
+    res.send({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      address: updatedUser.address,
+      gender: updatedUser.gender,
+      phone: updatedUser.phone,
+      isAdmin: updatedUser.isAdmin,
+    });
+  } else {
+    res.status(404).send({ message: 'User not found' });
+  }
+});
+
 userRouter.post(
   '/signup',
   expressAsyncHandler(async (req, res) => {
@@ -57,4 +78,5 @@ userRouter.post(
     });
   })
 );
+
 export default userRouter;

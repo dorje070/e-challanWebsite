@@ -20,15 +20,7 @@ function App() {
     console.log(data);
     window.location.href = '/';
   };
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios.get('/api');
-      console.log(result);
-      setProducts(result.data);
-    };
-    fetchData();
-  }, []);
+
   return (
     <BrowserRouter>
       <div>
