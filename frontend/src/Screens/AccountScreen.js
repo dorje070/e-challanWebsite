@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
+import Container from 'react-bootstrap/esm/Container';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/esm/Button';
 
 export default function AccountScreen() {
   const [name, SetName] = useState('');
@@ -31,46 +34,61 @@ export default function AccountScreen() {
   return (
     <div>
       AccountScreen{' '}
-      <form onSubmit={submitHandler}>
-        <label>Name</label>
-        <input
-          type="text"
-          required
-          name="name"
-          onChange={(e) => SetName(e.target.value)}
-        />
-        <label>email</label>
-        <input
-          type="text"
-          required
-          name="email"
-          onChange={(e) => SetEmail(e.target.value)}
-        />
-        <input
-          type="checkbox"
-          name="isAdmin"
-          checked={isAdmin}
-          onChange={(e) => setisAdmin(e.target.checked)}
-        />
-        <label>isAdmin</label>
-        <label>password</label>
-        <input
-          type="password"
-          required
-          name="password"
-          onChange={(e) => Setpassword(e.target.value)}
-        />
-        <label>cpassword</label>
-        <input
-          type="password"
-          required
-          name="cpassword"
-          onChange={(e) => SetCpassword(e.target.value)}
-        />
-        <div>
-          <button>Create Account</button>
-        </div>
-      </form>
+      <Container>
+        <Form onSubmit={submitHandler}>
+          <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Label>Name</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter Name"
+              name="name"
+              onChange={(e) => SetName(e.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Enter email"
+              name="email"
+              onChange={(e) => SetEmail(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasiisAdmin">
+            <Form.Check
+              type="checkbox"
+              label="is Admin"
+              name="isAdmin"
+              checked={isAdmin}
+              onChange={(e) => setisAdmin(e.target.checked)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              name="password"
+              onChange={(e) => Setpassword(e.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicCPassword">
+            <Form.Label>Comfrim Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Comfirm Password"
+              name="cpassword"
+              onChange={(e) => SetCpassword(e.target.value)}
+            />
+          </Form.Group>
+
+          <Button variant="primary" type="submit">
+            Create Account
+          </Button>
+        </Form>
+      </Container>
     </div>
   );
 }

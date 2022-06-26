@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 import './App.css';
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 import HomeScreen from './Screens/HomeScreen';
