@@ -22,15 +22,20 @@ function App() {
   return (
     <BrowserRouter>
       <div>
-        <NavLink to="/" className="NavbarLink">
-          Home
-        </NavLink>{' '}
         {isempty ? (
-          <NavLink to="/login" className="NavLink">
-            sign in
-          </NavLink>
+          <div>
+            <NavLink to="/" className="NavbarLink">
+              Home
+            </NavLink>{' '}
+            <NavLink to="/login" className="NavLink">
+              sign in
+            </NavLink>
+          </div>
         ) : (
           <div>
+            <NavLink to="/traffic" className="NavbarLink">
+              Home
+            </NavLink>{' '}
             <NavLink to="/traffic/profile" className="NavLink">
               profile
             </NavLink>{' '}
