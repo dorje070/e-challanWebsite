@@ -65,20 +65,24 @@ export default function ProfileScreen() {
   };
 
   const submitHandler = async (e) => {
-    e.preventDefault();
-    try {
-      const data = await axios.put(`/api/profile/${id}`, {
-        email,
-        name,
-        address,
-        gender,
-        phone,
-        isAdmin,
-      });
-      localStorage.setItem('userProfile', JSON.stringify(data));
-      SetisEdit(false);
-    } catch (err) {
-      console.log(err);
+    if (gender === '') {
+      console.log('please select gender');
+    } else {
+      e.preventDefault();
+      try {
+        const data = await axios.put(`/api/profile/${id}`, {
+          email,
+          name,
+          address,
+          gender,
+          phone,
+          isAdmin,
+        });
+        localStorage.setItem('userProfile', JSON.stringify(data));
+        SetisEdit(false);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
@@ -92,18 +96,22 @@ export default function ProfileScreen() {
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
-                placeholder={name}
                 name="name"
+                placeholder="please enter Name"
+                value={name}
                 onChange={(e) => Setname(e.target.value)}
+                required
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control
                 type="email"
-                placeholder={email}
+                value={email}
+                placeholder="Enter Email"
                 name="email"
                 onChange={(e) => Setemail(e.target.value)}
+                required
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasiisAdmin">
@@ -120,8 +128,10 @@ export default function ProfileScreen() {
               <Form.Control
                 type="text"
                 placeholder="Enter address"
+                value={address}
                 name="address"
                 onChange={(e) => Setaddress(e.target.value)}
+                required
               />
             </Form.Group>
             <div className="mb-3">
@@ -148,7 +158,9 @@ export default function ProfileScreen() {
                 type="number"
                 placeholder="Enter Phone Number"
                 name="Phone"
+                value={phone}
                 onChange={(e) => Setphone(e.target.value)}
+                required
               />
             </Form.Group>
             <Button variant="primary" type="submit">

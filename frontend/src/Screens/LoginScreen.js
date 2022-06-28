@@ -33,6 +33,7 @@ export default function LoginScreen() {
               type="email"
               placeholder="Enter email"
               onChange={(e) => SetEmail(e.target.value)}
+              required
             />
           </Form.Group>
 
@@ -42,6 +43,7 @@ export default function LoginScreen() {
               type="password"
               placeholder="Password"
               onChange={(e) => Setpassword(e.target.value)}
+              required
             />
           </Form.Group>
           <Button variant="primary" type="submit">

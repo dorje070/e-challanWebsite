@@ -43,6 +43,7 @@ export default function AccountScreen() {
               placeholder="Enter Name"
               name="name"
               onChange={(e) => SetName(e.target.value)}
+              required
             />
           </Form.Group>
 
@@ -53,6 +54,7 @@ export default function AccountScreen() {
               placeholder="Enter email"
               name="email"
               onChange={(e) => SetEmail(e.target.value)}
+              required
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasiisAdmin">
@@ -71,6 +73,7 @@ export default function AccountScreen() {
               placeholder="Password"
               name="password"
               onChange={(e) => Setpassword(e.target.value)}
+              required
             />
           </Form.Group>
 
@@ -81,6 +84,7 @@ export default function AccountScreen() {
               placeholder="Comfirm Password"
               name="cpassword"
               onChange={(e) => SetCpassword(e.target.value)}
+              required
             />
           </Form.Group>
 
