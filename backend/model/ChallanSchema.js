@@ -8,11 +8,12 @@ const ChallanSchema = new mongoose.Schema({
 
   date: { type: Date, required: true },
   address: { type: String, required: true },
-  linencse: { type: String, required: true, unique: true },
+  License: { type: String, required: true, unique: true },
   vehicle: { type: String, required: true, unique: true },
   wheeler: { type: String, required: true },
   createdBy: { type: String, required: true },
   offence: { type: String, required: true },
+  challan: { type: Number, required: true },
   submitDate: { type: Date, required: true },
 });
 

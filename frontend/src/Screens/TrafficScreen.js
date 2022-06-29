@@ -13,24 +13,53 @@ function TrafficScreen() {
   const [name, SetName] = useState('');
   const [address, Setaddress] = useState('');
   const [createdBy, SetcreatedBy] = useState(data.name);
-  const [offence, SetOffence] = useState(500);
-  const [linencse, Setlinencse] = useState('');
+  const [challan, SetChallan] = useState(500);
+  const [offence, SetOffence] = useState('No Helmet/Seat-belts');
+  const [License, SetLicense] = useState('');
   const [vehicle, setvehicle] = useState('');
   const [wheeler, Setwheeler] = useState('Two Wheeler');
 
+  var challandata = async () => {
+    if (
+      offence === 'No Helmet/Seat-belts' ||
+      offence === 'Overload' ||
+      offence === 'Reckless driving'
+    ) {
+      return 500;
+    } else if (
+      offence === 'Drink and Drive' ||
+      offence === 'Random Parking' ||
+      offence === 'No License' ||
+      offence === 'Accidents'
+    ) {
+      return 1000;
+    } else if (
+      offence === 'Wrong Lane' ||
+      offence === 'Over Speeding' ||
+      offence === 'Lights off during night time' ||
+      offence === 'Not Obeying traffic signs'
+    ) {
+      return 1500;
+    }
+  };
+
   const submitHandler = async (e) => {
     e.preventDefault();
+    const payment = await challandata();
+    SetChallan(payment);
+
     try {
-      const data = await Axios.post('/challan/add', {
+      const { data } = await Axios.post('/challan/add', {
         name,
         date,
         address,
-        linencse,
-        vehicle,
+        License,
         wheeler,
+        vehicle,
         createdBy,
         offence,
         submitDate,
+        challan,
       });
       console.log(data);
     } catch (err) {
@@ -75,12 +104,12 @@ function TrafficScreen() {
                 />
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formLinencse">
-                <Form.Label>Linencse Number</Form.Label>
+              <Form.Group className="mb-3" controlId="formLicense">
+                <Form.Label>License Number</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Enter Linencse No"
-                  onChange={(e) => Setlinencse(e.target.value)}
+                  placeholder="Enter License No"
+                  onChange={(e) => SetLicense(e.target.value)}
                   required
                 />
               </Form.Group>
@@ -126,19 +155,23 @@ function TrafficScreen() {
                   onChange={(e) => SetOffence(e.target.value)}
                   required
                 >
-                  <option value="500">No Helmet/Seat-belts</option>
-                  <option value="500">Overload</option>
-                  <option value="500">Reckless driving</option>
-                  <option value="1000">Drink and Drive</option>
-                  <option value="1000">Random Parking</option>
-                  <option value="1000">No License</option>
-                  <option value="1000">Accidents</option>
-                  <option value="1500">Wrong Lane</option>
-                  <option value="1500">Over Speeding</option>
-                  <option value="1500">
+                  <option value="No Helmet/Seat-belts">
+                    No Helmet/Seat-belts
+                  </option>
+                  <option value="Overload">Overload</option>
+                  <option value="Reckless driving">Reckless driving</option>
+                  <option value="Drink and Drive">Drink and Drive</option>
+                  <option value="Random Parking">Random Parking</option>
+                  <option value="No License">No License</option>
+                  <option value="Accidents">Accidents</option>
+                  <option value="Wrong Lane">Wrong Lane</option>
+                  <option value="Over Speeding">Over Speeding</option>
+                  <option value="Lights off during night time">
                     Lights off during night time
                   </option>{' '}
-                  <option value="1500">Not Obeying traffic signs</option>
+                  <option value="Not Obeying traffic signs">
+                    Not Obeying traffic signs
+                  </option>
                 </Form.Select>
               </Form.Group>
 
