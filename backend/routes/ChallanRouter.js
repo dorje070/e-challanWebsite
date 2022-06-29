@@ -34,4 +34,13 @@ ChallanRouter.post(
   })
 );
 
+ChallanRouter.get('/:linencse', async (req, res) => {
+  const challan = await Challan.findOne({ linencse: req.params.linencse });
+  if (challan) {
+    res.send(challan);
+  } else {
+    res.status(404).send({ message: 'challan Not Found' });
+  }
+});
+
 export default ChallanRouter;
