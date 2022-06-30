@@ -11,3 +11,31 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.owner {
+  width: 100%;
+  margin-right: 40px;
+}
+
+.first-row {
+  display: flex;
+}
+
+.selection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cards img {
+  width: 100px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.ComCard {
+  border: gray solid;
+  width: 600px;
+}

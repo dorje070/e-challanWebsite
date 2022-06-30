@@ -5,40 +5,10 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/esm/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'USERS_REQUEST':
-      return { ...state, laoding: true };
-    case 'USERS_SUCCESS':
-      return { ...state, users: action.payload, loading: false };
-    case 'USERS_FAIL':
-      return { ...state, error: action.payload, loading: false };
-    default:
-      return state;
-  }
-};
-
 export default function ProfileScreen() {
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
   const id = userInfo._id;
-  const [state, dispatch] = useReducer(reducer, {
-    loading: false,
-    user: [],
-    error: '',
-  });
-  const { loading, error, users } = state;
-  const loadUsers = async () => {
-    dispatch({ type: 'USERS_REQUEST' });
-    try {
-      const fetchData = async () => {
-        const { data } = await axios.get(`/api/${id}`);
-        dispatch({ type: 'USERS_SUCCESS', payload: data });
-      };
-      fetchData();
-    } catch (err) {
-      dispatch({ type: 'USERS_FAIL', payload: err.message });
-    }
-  };
+
   const [isEdit, SetisEdit] = useState(false);
   const [name, Setname] = useState('');
   const [email, Setemail] = useState('');
@@ -64,6 +34,9 @@ export default function ProfileScreen() {
     SetisEdit(true);
   };
 
+  const OffEdit = () => {
+    SetisEdit(false);
+  };
   const submitHandler = async (e) => {
     if (gender === '') {
       console.log('please select gender');
@@ -163,8 +136,13 @@ export default function ProfileScreen() {
                 required
               />
             </Form.Group>
-            <Button variant="primary" type="submit">
-              Create Account
+
+            <Button variant="primary mx-3" type="submit">
+              Submit
+            </Button>
+
+            <Button variant="primary mx-3" onClick={OffEdit}>
+              Back
             </Button>
           </Form>
         </Container>

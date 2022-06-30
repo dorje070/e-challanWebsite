@@ -36,6 +36,17 @@ ChallanRouter.post(
   })
 );
 
+ChallanRouter.get('/delete/:License', async (req, res) => {
+  const challan = await Challan.findOneAndDelete({
+    License: req.params.License,
+  });
+  if (challan) {
+    res.send(challan);
+  } else {
+    res.status(404).send({ message: 'challan Not Found' });
+  }
+});
+
 ChallanRouter.get('/:License', async (req, res) => {
   const challan = await Challan.findOne({ License: req.params.License });
   if (challan) {

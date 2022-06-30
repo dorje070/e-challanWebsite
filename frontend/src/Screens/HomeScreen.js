@@ -4,6 +4,9 @@ import Container from 'react-bootstrap/Container';
 import Axios from 'axios';
 import React, { useState } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
+import mc from '../images/mc.png';
+import pp from '../images/pp.png';
+import vi from '../images/vi.png';
 
 function HomeScreen() {
   const [inputLicense, SetinputLicense] = useState('');
@@ -43,6 +46,18 @@ function HomeScreen() {
     }
   };
 
+  const ComfirmHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const deletedata = await Axios.get(`/challan/delete/${inputLicense}`);
+      console.log(deletedata.data);
+      Setpayment(false);
+      Setisvisable(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const ComfirmCard = () => {
     Setpayment(true);
     Setisvisable(false);
@@ -50,6 +65,11 @@ function HomeScreen() {
 
   const VisiableData = () => {
     Setisvisable(false);
+  };
+
+  const backData = () => {
+    Setpayment(false);
+    Setisvisable(true);
   };
   return (
     <div>
@@ -72,10 +92,107 @@ function HomeScreen() {
         </Form>
       </Container>
       {ispayment ? (
-        <div>
+        <Container className="ComCard mt-5">
           {' '}
-          <h1>Comfirm your payment</h1>
-        </div>
+          <h1 className="d-flex justify-content-center my-4">
+            Offence : {offence}
+          </h1>
+          <h2 className="d-flex justify-content-center my-4">
+            {' '}
+            Payment Rs:{challan}
+          </h2>
+          <h1>Confirm Your Payment</h1>
+          <Form onSubmit={ComfirmHandler}>
+            <div className="first-row ">
+              <Form.Group className="mb-3 owner col" controlId="formOwner">
+                <Form.Label>Owner</Form.Label>
+                <Form.Control type="text" placeholder="Owner Name" required />
+              </Form.Group>
+              <Form.Group className="mb-3 cvv col" controlId="formLicense">
+                <Form.Label>Cvv</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Enter Cvv"
+                  required
+                />
+              </Form.Group>
+            </div>
+            <div className="second-row">
+              <Form.Group
+                className="mb-3 card-number"
+                controlId="formCardNumber"
+              >
+                <Form.Label>Card Number</Form.Label>
+                <Form.Control
+                  type="number"
+                  placeholder="Enter Card number"
+                  required
+                />
+              </Form.Group>
+            </div>
+            <div className="third-row">
+              <div className="selection"></div>
+              <Form.Label>Expiration Date</Form.Label>
+              <Form.Group className="mb-3 date" controlId="formOffence">
+                <Form.Select
+                  aria-label="Default select example"
+                  className="months"
+                  id="months"
+                  required
+                >
+                  <option value="Jan">Jan</option>
+                  <option value="Feb">Feb</option>
+                  <option value="Mar">Mar</option>
+                  <option value="Apr">Apr</option>
+                  <option value="May">May</option>
+                  <option value="Jun">Jun</option>
+                  <option value="Jul">Jul</option>
+                  <option value="Aug">Aug</option>
+                  <option value="Sep">Sep</option>
+                  <option value="Oct">Oct</option>
+                  <option value="Nov">Nov</option>
+                  <option value="Dec">Dec</option>
+                </Form.Select>
+                <Form.Select
+                  aria-label="Default select example"
+                  className="years"
+                  id="years"
+                  required
+                >
+                  <option value="2027">2027</option>
+                  <option value="2026">2026</option>
+                  <option value="2025">2025</option>
+                  <option value="2024">2024</option>
+                  <option value="2023">2023</option>
+                  <option value="2022">2022</option>
+                </Form.Select>
+                <div class="cards d-flex justify-content-center my-4">
+                  <img src={mc} alt="" />
+                  <img src={vi} alt="" />
+                  <img src={pp} alt="" />
+                </div>
+              </Form.Group>
+            </div>
+            <div className="d-flex justify-content-center my-4">
+              <Button
+                variant="primary mx-2"
+                className="Comfrim"
+                size="lg"
+                type="submit"
+              >
+                Comfrim
+              </Button>
+              <Button
+                variant="primary mx-2 "
+                onClick={backData}
+                className="Comfrim"
+                size="lg"
+              >
+                Back
+              </Button>
+            </div>
+          </Form>
+        </Container>
       ) : (
         <div></div>
       )}

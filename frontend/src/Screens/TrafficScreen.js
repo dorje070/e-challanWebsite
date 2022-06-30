@@ -1,10 +1,23 @@
 import Container from 'react-bootstrap/esm/Container';
-import React, { useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/esm/Button';
 import Axios from 'axios';
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'USERS_REQUEST':
+      return { ...state, laoding: true };
+    case 'USERS_SUCCESS':
+      return { ...state, users: action.payload, loading: false };
+    case 'USERS_FAIL':
+      return { ...state, error: action.payload, loading: false };
+    default:
+      return state;
+  }
+};
 
 function TrafficScreen() {
   const [date, setdate] = useState(new Date());
@@ -19,34 +32,51 @@ function TrafficScreen() {
   const [vehicle, setvehicle] = useState('');
   const [wheeler, Setwheeler] = useState('Two Wheeler');
 
-  var challandata = async () => {
+  const [state, dispatch] = useReducer(reducer, {
+    loading: false,
+    user: [],
+    error: '',
+  });
+  const { loading, error, users } = state;
+  const loadUsers = async () => {
+    dispatch({ type: 'USERS_REQUEST' });
+    try {
+      const fetchData = async () => {
+        const { data } = await Axios.get(`/api/`);
+        dispatch({ type: 'USERS_SUCCESS', payload: data });
+      };
+      fetchData();
+    } catch (err) {
+      dispatch({ type: 'USERS_FAIL', payload: err.message });
+    }
+  };
+
+  const challandata = async () => {
     if (
       offence === 'No Helmet/Seat-belts' ||
       offence === 'Overload' ||
       offence === 'Reckless driving'
     ) {
-      return 500;
+      SetChallan(500);
     } else if (
       offence === 'Drink and Drive' ||
       offence === 'Random Parking' ||
       offence === 'No License' ||
       offence === 'Accidents'
     ) {
-      return 1000;
+      SetChallan(1000);
     } else if (
       offence === 'Wrong Lane' ||
       offence === 'Over Speeding' ||
       offence === 'Lights off during night time' ||
       offence === 'Not Obeying traffic signs'
     ) {
-      return 1500;
+      SetChallan(1500);
     }
   };
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const payment = await challandata();
-    SetChallan(payment);
 
     try {
       const { data } = await Axios.post('/challan/add', {
@@ -152,6 +182,7 @@ function TrafficScreen() {
                 <Form.Label>Offence</Form.Label>
                 <Form.Select
                   aria-label="Default select example"
+                  onClick={challandata}
                   onChange={(e) => SetOffence(e.target.value)}
                   required
                 >
@@ -166,7 +197,7 @@ function TrafficScreen() {
                   <option value="Accidents">Accidents</option>
                   <option value="Wrong Lane">Wrong Lane</option>
                   <option value="Over Speeding">Over Speeding</option>
-                  <option value="Lights off during night time">
+                  <option value="Lights off during night time" className="1500">
                     Lights off during night time
                   </option>{' '}
                   <option value="Not Obeying traffic signs">
