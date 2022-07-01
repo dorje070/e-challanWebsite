@@ -8,6 +8,8 @@ import Axios from 'axios';
 import Table from 'react-bootstrap/Table';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import jsPDF from 'jspdf';
+import { getError } from '../utils';
+import { toast } from 'react-toastify';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -53,14 +55,18 @@ function TrafficScreen() {
     }
   };
 
-  const textvalue = `--------------------------------------------  E-challan  -------------------------------------
-  \n             Name = ${name}                          Vechicle Type = ${wheeler}
+  const textvalue = ` 
+  \n             Name = ${name}                                                         
+  \n             Vechicle Type = ${wheeler}
   \n             Date = ${date}
-  \n             Address = ${address}                        Created By = ${createdBy}
-  \n             License Number = ${License}                     Vechicle Number = ${vehicle}
+  \n             Address = ${address}                        
+  \n             Created By = ${createdBy}
+  \n             License Number = ${License}                     
+  \n             Vechicle Number = ${vehicle}
   \n             Offence = ${offence}
   \n             challan = ${challan}
-  \n             Submit Date = ${submitDate}`;
+  \n             Submit Date = ${submitDate}
+  \n             Signature = `;
 
   const printdata = () => {
     var doc = new jsPDF('p', 'pt');
@@ -76,9 +82,11 @@ function TrafficScreen() {
     try {
       const deletedata = await Axios.get(`/challan/delete/${deleteLicense}`);
       console.log(deletedata.data);
+
       window.location.href = '/traffic';
+      toast('delete the challan is successful');
     } catch (err) {
-      console.log(err);
+      toast.error(getError(err));
     }
   };
 
@@ -93,8 +101,9 @@ function TrafficScreen() {
         SetLicense(data.License);
         setvehicle(data.vehicle);
       }
+      toast('please edit challan from input');
     } catch (err) {
-      console.log(err);
+      toast.error(getError(err));
     }
   };
 
@@ -115,7 +124,7 @@ function TrafficScreen() {
       window.location.href = '/traffic';
       console.log(data);
     } catch (err) {
-      console.log(err);
+      toast.error(getError(err));
     }
   };
   const challandata = async () => {
@@ -157,15 +166,21 @@ function TrafficScreen() {
         submitDate,
         challan,
       });
-      window.location.href = '/traffic';
+      const answer = window.confirm('Do you want to print the challan or not');
+      if (answer) {
+        printdata();
+        window.location.href = '/traffic';
+      } else {
+        window.location.href = '/traffic';
+      }
+
       console.log(data);
     } catch (err) {
-      console.log(err);
+      toast.error(getError(err));
     }
   };
   return (
     <div>
-      Traffic Page
       <div className="row">
         <Container className="col-sm">
           <Form onSubmit={submitHandler}>
@@ -315,10 +330,10 @@ function TrafficScreen() {
           </Form>
         </Container>
         <Container className="col-sm ">
-          <label></label>
           <textarea
+            className="textpdf"
             name="w3review"
-            rows="16"
+            rows="25"
             cols="80"
             value={textvalue}
             disabled
@@ -331,65 +346,70 @@ function TrafficScreen() {
         ) : error ? (
           <div> Error: {error}</div>
         ) : (
-          <Scrollbars style={{ width: 1300, height: 200 }}>
-            <Table
-              striped
-              bordered
-              hover
-              className="table-fixed"
-              size="sm"
-              responsive
-            >
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Date</th>
-                  <th>Address</th>
-                  <th>License</th>
-                  <th>Vehicle</th>
-                  <th>Type of Vehicle</th>
-                  <th>Created by</th>
-                  <th>Offence</th>
-                  <th>Submit Date</th>
-                  <th>challan</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {users.map((user) => (
-                  <tr key={user.License}>
-                    <td>{user.name}</td>
-                    <td>{user.date}</td>
-                    <td>{user.address}</td>
-                    <td>{user.License}</td>
-                    <td>{user.vehicle}</td>
-                    <td>{user.wheeler}</td>
-                    <td>{user.createdBy}</td>
-                    <td>{user.offence}</td>
-                    <td>{user.submitDate}</td>
-                    <td>{user.challan}</td>
-                    <td>
-                      <div className="d-flex justify-content-center">
-                        <Button
-                          variant="primary mx-2"
-                          onClick={() => editInput(user.License)}
-                        >
-                          edit
-                        </Button>
-                        <Button
-                          variant="primary mx-2"
-                          onClick={() => deletechallan(user.License)}
-                        >
-                          Delete
-                        </Button>
-                      </div>
-                    </td>
+          <Container>
+            <h3 className="d-flex justify-content-center my-3">
+              Challan table
+            </h3>
+            <Scrollbars className="scroll" style={{ width: 1300, height: 200 }}>
+              <Table
+                striped
+                bordered
+                hover
+                className="table-fixed"
+                size="sm"
+                responsive
+              >
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Address</th>
+                    <th>License</th>
+                    <th>Vehicle</th>
+                    <th>Type of Vehicle</th>
+                    <th>Created by</th>
+                    <th>Offence</th>
+                    <th>Submit Date</th>
+                    <th>challan</th>
+                    <th>Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </Table>
-          </Scrollbars>
+                </thead>
+
+                <tbody>
+                  {users.map((user) => (
+                    <tr key={user.License}>
+                      <td>{user.name}</td>
+                      <td>{user.date}</td>
+                      <td>{user.address}</td>
+                      <td>{user.License}</td>
+                      <td>{user.vehicle}</td>
+                      <td>{user.wheeler}</td>
+                      <td>{user.createdBy}</td>
+                      <td>{user.offence}</td>
+                      <td>{user.submitDate}</td>
+                      <td>{user.challan}</td>
+                      <td>
+                        <div className="d-flex justify-content-center">
+                          <Button
+                            variant="primary mx-2 tablebutton"
+                            onClick={() => editInput(user.License)}
+                          >
+                            edit
+                          </Button>
+                          <Button
+                            variant="primary mx-2 tablebutton"
+                            onClick={() => deletechallan(user.License)}
+                          >
+                            Delete
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </Scrollbars>
+          </Container>
         )}
       </Container>
     </div>

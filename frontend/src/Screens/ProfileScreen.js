@@ -4,6 +4,8 @@ import Container from 'react-bootstrap/esm/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/esm/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { toast } from 'react-toastify';
+import { getError } from '../utils';
 
 export default function ProfileScreen() {
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
@@ -31,7 +33,7 @@ export default function ProfileScreen() {
       Setphone(result.data.phone);
     };
     fetchData();
-  }, []);
+  }, [id]);
 
   const Editdata = () => {
     SetisEdit(true);
@@ -49,17 +51,20 @@ export default function ProfileScreen() {
         const data = await axios.put(`/api/password/${id}`, {
           password,
         });
+        toast('Changing Password is successful');
+        Setpassword('');
+        SetCpassword('');
         console.log(data);
       } catch (err) {
-        console.log(err);
+        toast.error(getError(err));
       }
     } else {
-      alert('password and comfirm password are not matching');
+      toast('password and comfirm password are not matching');
     }
   };
   const submitHandler = async (e) => {
     if (gender === '') {
-      console.log('please select gender');
+      toast('please select gender');
     } else {
       e.preventDefault();
       try {
@@ -72,16 +77,17 @@ export default function ProfileScreen() {
           isAdmin,
         });
         localStorage.setItem('userProfile', JSON.stringify(data));
+        toast('sucessfully edit the profile');
+
         SetisEdit(false);
       } catch (err) {
-        console.log(err);
+        toast.error(getError(err));
       }
     }
   };
 
   return (
     <div>
-      ProfileScreen
       {isEdit ? (
         <Container>
           <Form onSubmit={submitHandler}>
@@ -107,15 +113,7 @@ export default function ProfileScreen() {
                 required
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasiisAdmin">
-              <Form.Check
-                type="checkbox"
-                label="is Admin"
-                name="isAdmin"
-                checked={isAdmin}
-                onChange={(e) => setisAdmin(e.target.checked)}
-              />
-            </Form.Group>
+
             <Form.Group className="mb-3" controlId="formBasicAddress">
               <Form.Label>Address</Form.Label>
               <Form.Control
@@ -202,6 +200,7 @@ export default function ProfileScreen() {
             <Form.Control
               type="password"
               placeholder="Password"
+              value={password}
               onChange={(e) => Setpassword(e.target.value)}
               required
             />
@@ -214,6 +213,7 @@ export default function ProfileScreen() {
               placeholder="Comfirm Password"
               name="cpassword"
               onChange={(e) => SetCpassword(e.target.value)}
+              value={cpassword}
               required
             />
           </Form.Group>

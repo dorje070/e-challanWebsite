@@ -7,6 +7,8 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import mc from '../images/mc.png';
 import pp from '../images/pp.png';
 import vi from '../images/vi.png';
+import { getError } from '../utils';
+import { toast } from 'react-toastify';
 
 function HomeScreen() {
   const [inputLicense, SetinputLicense] = useState('');
@@ -40,9 +42,9 @@ function HomeScreen() {
       SetOffence(data.offence);
       Setisvisable(true);
 
-      console.log(data);
+      toast('challan successfully found');
     } catch (err) {
-      console.log(err);
+      toast.error(getError(err));
     }
   };
 
@@ -53,8 +55,9 @@ function HomeScreen() {
       console.log(deletedata.data);
       Setpayment(false);
       Setisvisable(false);
+      toast('successfully paid ');
     } catch (err) {
-      console.log(err);
+      toast.error(getError(err));
     }
   };
 
@@ -73,7 +76,6 @@ function HomeScreen() {
   };
   return (
     <div>
-      Home Screen
       <Container>
         <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="formLicense">

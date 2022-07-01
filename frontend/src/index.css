@@ -43,3 +43,40 @@ h1 {
 textarea {
   resize: none;
 }
+
+@media (max-width: 500px) {
+  .table thead {
+    display: none;
+  }
+
+  .textpdf {
+    padding: 10;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .table,
+  .table tbody,
+  .table tr,
+  .table td,
+  .scroll,
+  .textpdf {
+    display: block;
+    width: 100%;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 50%;
+    padding-left: 15px;
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .table tr {
+    margin-bottom: 15px;
+  }
+}

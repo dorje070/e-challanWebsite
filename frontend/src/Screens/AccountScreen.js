@@ -3,6 +3,8 @@ import Axios from 'axios';
 import Container from 'react-bootstrap/esm/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/esm/Button';
+import { getError } from '../utils';
+import { toast } from 'react-toastify';
 
 export default function AccountScreen() {
   const [name, SetName] = useState('');
@@ -13,27 +15,31 @@ export default function AccountScreen() {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== cpassword) {
-      console.log('password is incorrect');
-      return;
-    }
-    try {
-      const { data } = await Axios.post('/api/signup', {
-        name,
-        email,
-        password,
-        isAdmin,
-      });
-
-      localStorage.setItem('userProfile', JSON.stringify(data));
-      console.log(data);
-    } catch (err) {
-      console.log(err);
+      toast('password is incorrect');
+    } else {
+      try {
+        const { data } = await Axios.post('/api/signup', {
+          name,
+          email,
+          password,
+          isAdmin,
+        });
+        toast('Account is successful create');
+        SetName('');
+        SetEmail('');
+        Setpassword('');
+        SetCpassword('');
+        setisAdmin(false);
+        localStorage.setItem('userProfile', JSON.stringify(data));
+        console.log(data);
+      } catch (err) {
+        toast.error(getError(err));
+      }
     }
   };
 
   return (
     <div>
-      AccountScreen{' '}
       <Container>
         <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="formBasicName">
@@ -43,6 +49,7 @@ export default function AccountScreen() {
               placeholder="Enter Name"
               name="name"
               onChange={(e) => SetName(e.target.value)}
+              value={name}
               required
             />
           </Form.Group>
@@ -54,6 +61,7 @@ export default function AccountScreen() {
               placeholder="Enter email"
               name="email"
               onChange={(e) => SetEmail(e.target.value)}
+              value={email}
               required
             />
           </Form.Group>
@@ -73,6 +81,7 @@ export default function AccountScreen() {
               placeholder="Password"
               name="password"
               onChange={(e) => Setpassword(e.target.value)}
+              value={password}
               required
             />
           </Form.Group>
@@ -84,6 +93,7 @@ export default function AccountScreen() {
               placeholder="Comfirm Password"
               name="cpassword"
               onChange={(e) => SetCpassword(e.target.value)}
+              value={cpassword}
               required
             />
           </Form.Group>

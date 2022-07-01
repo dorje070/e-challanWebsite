@@ -3,6 +3,8 @@ import Axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
+import { toast } from 'react-toastify';
+import { getError } from '../utils';
 
 export default function LoginScreen() {
   const [email, SetEmail] = useState('');
@@ -15,11 +17,12 @@ export default function LoginScreen() {
         email,
         password,
       });
+
       localStorage.setItem('userInfo', JSON.stringify(data));
-      console.log(data);
+      toast('succussful Login');
       window.location.href = '/traffic';
     } catch (err) {
-      console.log(err);
+      toast.error(getError(err));
     }
   };
 
