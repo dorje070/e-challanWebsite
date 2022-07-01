@@ -59,6 +59,27 @@ userRouter.put('/profile/:id', async (req, res) => {
   }
 });
 
+userRouter.put('/password/:id', async (req, res) => {
+  const user = await User.findById({ _id: req.params.id });
+  if (user) {
+    user.password = bcrypt.hashSync(req.body.password);
+
+    const updatedUser = await user.save();
+    res.send({
+      _id: updatedUser._id,
+      password: updatedUser.password,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      address: updatedUser.address,
+      gender: updatedUser.gender,
+      phone: updatedUser.phone,
+      isAdmin: updatedUser.isAdmin,
+    });
+  } else {
+    res.status(404).send({ message: 'User not found' });
+  }
+});
+
 userRouter.post(
   '/signup',
   expressAsyncHandler(async (req, res) => {

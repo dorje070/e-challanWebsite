@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Container from 'react-bootstrap/esm/Container';
 import Form from 'react-bootstrap/Form';
@@ -16,6 +16,9 @@ export default function ProfileScreen() {
   const [address, Setaddress] = useState('');
   const [gender, Setgender] = useState('');
   const [phone, Setphone] = useState();
+
+  const [password, Setpassword] = useState('');
+  const [cpassword, SetCpassword] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,6 +39,23 @@ export default function ProfileScreen() {
 
   const OffEdit = () => {
     SetisEdit(false);
+  };
+
+  const ChangePassword = async (e) => {
+    e.preventDefault();
+
+    if (password === cpassword) {
+      try {
+        const data = await axios.put(`/api/password/${id}`, {
+          password,
+        });
+        console.log(data);
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      alert('password and comfirm password are not matching');
+    }
   };
   const submitHandler = async (e) => {
     if (gender === '') {
@@ -169,6 +189,41 @@ export default function ProfileScreen() {
           </Container>
         </div>
       )}
+      <Container>
+        <div>
+          <h3 className="d-flex justify-content-center my-4">
+            Change Password
+          </h3>
+        </div>
+
+        <Form onSubmit={ChangePassword}>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>New Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              onChange={(e) => Setpassword(e.target.value)}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicCPassword">
+            <Form.Label>Comfrim Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Comfirm Password"
+              name="cpassword"
+              onChange={(e) => SetCpassword(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <div>
+            <Button variant="primary" type="submit">
+              Update
+            </Button>
+          </div>
+        </Form>
+      </Container>
     </div>
   );
 }

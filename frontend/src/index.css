@@ -39,3 +39,7 @@ h1 {
   border: gray solid;
   width: 600px;
 }
+
+textarea {
+  resize: none;
+}
