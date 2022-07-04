@@ -44,28 +44,55 @@ textarea {
   resize: none;
 }
 
+.scroll {
+  width: 1300px;
+  height: 200px;
+  padding: 10px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+.table {
+  width: 100%;
+}
+
 @media (max-width: 500px) {
-  .table thead {
-    display: none;
+  .iContainer {
+    margin-left: 30px;
+    width: 340px;
   }
 
   .textpdf {
     padding: 10;
-    margin-top: 10px;
-    margin-left: 10px;
+    width: 320px;
+    margin-top: 50px;
+    margin-left: 30px;
     margin-right: 10px;
+  }
+
+  .scroll {
+    width: 300px;
+    height: 300px;
+  }
+  .table thead {
+    display: none;
   }
 
   .table,
   .table tbody,
   .table tr,
-  .table td,
-  .scroll,
-  .textpdf {
+  .table td {
     display: block;
     width: 100%;
   }
-
+  .table tr {
+    margin-bottom: 15px;
+  }
+  .table td {
+    text-align: right;
+    padding-left: 50%;
+    text-align: right;
+    position: relative;
+  }
   .table td::before {
     content: attr(data-label);
     position: absolute;
@@ -74,9 +101,6 @@ textarea {
     padding-left: 15px;
     font-size: 15px;
     font-weight: bold;
-  }
-
-  .table tr {
-    margin-bottom: 15px;
+    text-align: left;
   }
 }

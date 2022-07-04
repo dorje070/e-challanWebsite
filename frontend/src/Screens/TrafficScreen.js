@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/esm/Button';
 import Axios from 'axios';
 import Table from 'react-bootstrap/Table';
-import { Scrollbars } from 'react-custom-scrollbars-2';
+
 import jsPDF from 'jspdf';
 import { getError } from '../utils';
 import { toast } from 'react-toastify';
@@ -182,7 +182,7 @@ function TrafficScreen() {
   return (
     <div>
       <div className="row">
-        <Container className="col-sm">
+        <Container className="col-sm iContainer">
           <Form onSubmit={submitHandler}>
             <h2 className="d-flex justify-content-center mb-4">Echallan</h2>
             <div className="row d-flex justify-content-center">
@@ -350,15 +350,8 @@ function TrafficScreen() {
             <h3 className="d-flex justify-content-center my-3">
               Challan table
             </h3>
-            <Scrollbars className="scroll" style={{ width: 1300, height: 200 }}>
-              <Table
-                striped
-                bordered
-                hover
-                className="table-fixed"
-                size="sm"
-                responsive
-              >
+            <div className="scroll">
+              <Table striped bordered hover size="sm">
                 <thead>
                   <tr>
                     <th>Name</th>
@@ -378,26 +371,26 @@ function TrafficScreen() {
                 <tbody>
                   {users.map((user) => (
                     <tr key={user.License}>
-                      <td>{user.name}</td>
-                      <td>{user.date}</td>
-                      <td>{user.address}</td>
-                      <td>{user.License}</td>
-                      <td>{user.vehicle}</td>
-                      <td>{user.wheeler}</td>
-                      <td>{user.createdBy}</td>
-                      <td>{user.offence}</td>
-                      <td>{user.submitDate}</td>
-                      <td>{user.challan}</td>
-                      <td>
-                        <div className="d-flex justify-content-center">
+                      <td data-label="Name">{user.name}</td>
+                      <td data-label="Date">{user.date}</td>
+                      <td data-label="Address">{user.address}</td>
+                      <td data-label="License">{user.License}</td>
+                      <td data-label="Vehicle">{user.vehicle}</td>
+                      <td data-label="Vechicle Type">{user.wheeler}</td>
+                      <td data-label="Created by">{user.createdBy}</td>
+                      <td data-label="Offence">{user.offence}</td>
+                      <td data-label="Submit Date">{user.submitDate}</td>
+                      <td data-label="challan">{user.challan}</td>
+                      <td data-label="Actions">
+                        <div className="d-flex justify-content-center tablebtn">
                           <Button
-                            variant="primary mx-2 tablebutton"
+                            variant="primary mx-2 "
                             onClick={() => editInput(user.License)}
                           >
                             edit
                           </Button>
                           <Button
-                            variant="primary mx-2 tablebutton"
+                            variant="primary mx-2 "
                             onClick={() => deletechallan(user.License)}
                           >
                             Delete
@@ -408,7 +401,7 @@ function TrafficScreen() {
                   ))}
                 </tbody>
               </Table>
-            </Scrollbars>
+            </div>
           </Container>
         )}
       </Container>
