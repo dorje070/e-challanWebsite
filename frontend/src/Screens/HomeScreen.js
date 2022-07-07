@@ -94,7 +94,7 @@ function HomeScreen() {
         </Form>
       </Container>
       {ispayment ? (
-        <Container className="ComCard mt-5 iContainer">
+        <Container className="ComCard my-5 iContainer">
           {' '}
           <h1 className="d-flex justify-content-center my-4">
             Offence : {offence}
@@ -199,7 +199,7 @@ function HomeScreen() {
         <div></div>
       )}
       {isvisable ? (
-        <Container className="iContainer">
+        <Container className="iContainer my-5">
           <h1 className="d-flex justify-content-center my-4">
             Are you {name} ?
           </h1>
