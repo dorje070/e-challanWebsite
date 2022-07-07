@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-
+import E_logo from '../images/E_logo.png';
 export default function HeaderScreen() {
   const data = JSON.parse(localStorage.getItem('userInfo'));
+  const loginstring = 'http://localhost:3000/login';
+
   console.log(data);
   var isempty = false;
   if (data === null) {
@@ -18,18 +20,23 @@ export default function HeaderScreen() {
   };
   return (
     <div>
-      <Navbar bg="light" expand="lg" className="mb-5">
+      <Navbar expand="lg" className="mb-5 headerbar">
         <Container>
-          <Navbar.Brand href={isempty ? '/' : '/traffic'}>
-            E-challan
+          <Navbar.Brand href={isempty ? '/' : '/traffic'} className="row">
+            <img src={E_logo} alt="" className="mr-2 col" />
+            <h3 className="col">E-challan</h3>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
           <Navbar.Collapse id="basic-navbar-nav">
             {isempty ? (
-              <Nav className="ms-auto">
-                <Nav.Link href="/login">Sign in</Nav.Link>
-              </Nav>
+              window.location.href === loginstring ? (
+                ''
+              ) : (
+                <Nav className="ms-auto">
+                  <Nav.Link href="/login">Sign in</Nav.Link>
+                </Nav>
+              )
             ) : (
               <Nav className="ms-auto">
                 {' '}

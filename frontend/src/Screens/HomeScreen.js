@@ -76,7 +76,7 @@ function HomeScreen() {
   };
   return (
     <div>
-      <Container>
+      <Container className="iContainer">
         <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="formLicense">
             <Form.Label>Enter License no </Form.Label>
@@ -94,7 +94,7 @@ function HomeScreen() {
         </Form>
       </Container>
       {ispayment ? (
-        <Container className="ComCard mt-5">
+        <Container className="ComCard mt-5 iContainer">
           {' '}
           <h1 className="d-flex justify-content-center my-4">
             Offence : {offence}
@@ -199,7 +199,7 @@ function HomeScreen() {
         <div></div>
       )}
       {isvisable ? (
-        <Container>
+        <Container className="iContainer">
           <h1 className="d-flex justify-content-center my-4">
             Are you {name} ?
           </h1>

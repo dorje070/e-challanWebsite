@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import { toast } from 'react-toastify';
 import { getError } from '../utils';
+import loginpic from '../images/policeman.jpg';
 
 export default function LoginScreen() {
   const [email, SetEmail] = useState('');
@@ -28,9 +29,9 @@ export default function LoginScreen() {
 
   return (
     <div>
-      <Container>
-        <Form onSubmit={submitHandler}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+      <Container className="loignfrom">
+        <Form onSubmit={submitHandler} className="col">
+          <Form.Group className="my-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
               type="email"
@@ -53,6 +54,10 @@ export default function LoginScreen() {
             Sign in
           </Button>
         </Form>
+
+        <div className="col d-flex justify-content-center mb-5">
+          <img src={loginpic} alt="" className="loginImg" />
+        </div>
       </Container>
     </div>
   );

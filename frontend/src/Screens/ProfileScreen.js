@@ -89,7 +89,7 @@ export default function ProfileScreen() {
   return (
     <div>
       {isEdit ? (
-        <Container>
+        <Container className="iContainer">
           <Form onSubmit={submitHandler}>
             <Form.Group className="mb-3" controlId="formBasicName">
               <Form.Label>Name</Form.Label>
@@ -166,7 +166,7 @@ export default function ProfileScreen() {
         </Container>
       ) : (
         <div>
-          <Container>
+          <Container className="iContainer">
             <ListGroup className="mb-3">
               <ListGroup.Item>Name: {name}</ListGroup.Item>
               <ListGroup.Item>Email: {email}</ListGroup.Item>
@@ -187,7 +187,7 @@ export default function ProfileScreen() {
           </Container>
         </div>
       )}
-      <Container>
+      <Container className="iContainer mb-5">
         <div>
           <h3 className="d-flex justify-content-center my-4">
             Change Password

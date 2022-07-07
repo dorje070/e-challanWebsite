@@ -5,11 +5,23 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: rgba(208, 227, 244);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
 }
 
 .owner {
@@ -44,6 +56,34 @@ textarea {
   resize: none;
 }
 
+footer {
+  background-color: rgb(45, 94, 139);
+  color: #fff;
+  margin-top: auto;
+}
+
+.loginImg {
+  width: 300px;
+  height: 500px;
+}
+
+.memberlist {
+  column-width: 200px;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+.NepaliPoliceimg {
+  width: 100px;
+  height: 100px;
+}
+
+.Nepalpolicetext {
+  margin-top: 5px;
+  font-size: 25px;
+}
 .scroll {
   width: 1300px;
   height: 200px;
@@ -55,9 +95,26 @@ textarea {
   width: 100%;
 }
 
+li {
+  width: 120px;
+}
+
+.headerbar {
+  background-color: rgba(164, 209, 250);
+  font-weight: bold;
+  font-size: 20px;
+}
+
+a:hover {
+  color: skyblue;
+}
+.loignfrom {
+  display: flex;
+}
+
 @media (max-width: 500px) {
   .iContainer {
-    margin-left: 30px;
+    margin-left: 20px;
     width: 340px;
   }
 
@@ -65,12 +122,16 @@ textarea {
     padding: 10;
     width: 320px;
     margin-top: 50px;
-    margin-left: 30px;
+    margin-left: 20px;
     margin-right: 10px;
   }
 
+  .memberlist {
+    display: block;
+    list-style: none;
+  }
   .scroll {
-    width: 300px;
+    width: 320px;
     height: 300px;
   }
   .table thead {
@@ -102,5 +163,17 @@ textarea {
     font-size: 15px;
     font-weight: bold;
     text-align: left;
+  }
+
+  li {
+    margin-left: 70px;
+    width: 150px;
+  }
+  .NepalPolice {
+    display: block;
+  }
+
+  .loignfrom {
+    display: block;
   }
 }
