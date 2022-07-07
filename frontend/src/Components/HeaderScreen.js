@@ -24,7 +24,7 @@ export default function HeaderScreen() {
         <Container>
           <Navbar.Brand href={isempty ? '/' : '/traffic'} className="row">
             <img src={E_logo} alt="" className="mr-2 col" />
-            <h3 className="col">E-challan</h3>
+            <h3 className="col mt-3">E-challan</h3>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
