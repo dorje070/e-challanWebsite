@@ -76,7 +76,7 @@ function HomeScreen() {
   };
   return (
     <div>
-      <Container className="iContainer">
+      <Container className="iContainer mb-5">
         <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="formLicense">
             <Form.Label>Enter License no </Form.Label>
