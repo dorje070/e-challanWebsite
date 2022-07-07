@@ -77,9 +77,8 @@ export default function ProfileScreen() {
           isAdmin,
         });
         localStorage.setItem('userProfile', JSON.stringify(data));
-        toast('sucessfully edit the profile');
-
         SetisEdit(false);
+        toast('sucessfully edit the profile');
       } catch (err) {
         toast.error(getError(err));
       }

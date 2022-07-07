@@ -40,7 +40,7 @@ export default function AccountScreen() {
 
   return (
     <div>
-      <Container>
+      <Container className="mb-5">
         <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="formBasicName">
             <Form.Label>Name</Form.Label>
