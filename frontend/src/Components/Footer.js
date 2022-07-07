@@ -40,28 +40,28 @@ export default function Footer() {
             </h5>
             <ul className="list-inline">
               <li>
-                <a href="https://www.youtube.com/">
-                  <icon className="mx-3">
+                <a href="https://www.youtube.com/" className="d-flex flex-row">
+                  <div className="mx-3 ">
                     <FaYoutube />
-                  </icon>
-                  Youtube
+                  </div>
+                  <div> youtube</div>
                 </a>
               </li>
 
               <li>
-                <a href="https://www.facebook.com/">
-                  <icon className="mx-3">
+                <a href="https://www.facebook.com/" className="d-flex flex-row">
+                  <div className="mx-3">
                     <FaFacebook />
-                  </icon>
-                  Facebook
+                  </div>
+                  <div>Facebook</div>
                 </a>
               </li>
               <li>
-                <a href="https://www.twitter.com/">
-                  <icon className="mx-3">
+                <a href="https://www.twitter.com/" className="d-flex flex-row">
+                  <div className="mx-3">
                     <FaTwitter />
-                  </icon>
-                  Twitter
+                  </div>
+                  <div>Twitter</div>
                 </a>
               </li>
             </ul>

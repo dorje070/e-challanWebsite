@@ -9,6 +9,7 @@ import HeaderScreen from './Components/HeaderScreen';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Errorscreen from './Screens/Errorscreen';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/traffic" element={<TrafficScreen />}></Route>
             <Route path="/traffic/profile" element={<ProfileScreen />}></Route>
             <Route path="/traffic/account" element={<AccountScreen />}></Route>
+            <Route path="/*" element={<Errorscreen />}></Route>
           </Routes>
         </main>
       </div>
